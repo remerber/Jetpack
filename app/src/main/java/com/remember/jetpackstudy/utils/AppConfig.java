@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.remember.jetpackstudy.model.BottomBar;
 import com.remember.jetpackstudy.model.Destination;
+import com.remember.jetpackstudy.model.SofaTab;
 import com.remember.libcommon.global.AppGlobals;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ public class AppConfig {
     private static HashMap<String, Destination> sDestConfig;
 
     private static BottomBar sBottomBar;
+    private static SofaTab sofaTab;
 
     public static HashMap<String, Destination> getDestConfig() {
         if (sDestConfig == null) {
@@ -38,7 +40,14 @@ public class AppConfig {
         }
         return sBottomBar;
     }
+    public static SofaTab getSofaTabConfig() {
 
+        if (sofaTab == null) {
+            String content = parseFile("sofa_tabs_config.json");
+            sofaTab = JSON.parseObject(content, SofaTab.class);
+        }
+        return sofaTab;
+    }
 
     private static String parseFile(String fileName) {
         AssetManager assets = AppGlobals.getApplication().getAssets();
